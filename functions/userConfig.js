@@ -7,17 +7,25 @@ export async function onRequestGet(context) {
         return new Response(JSON.stringify({}), { status: 200 });
     }
 
+    const USER_CONFIG = {
+        "uploadBkImg": "bing",
+        "loginBkImg": "bing",
+        "ownerName": "telegram",
+        "siteTitle": "Telegram igm"
+    };
+    
     try {
         // 尝试解析 USER_CONFIG 为 JSON
         const parsedConfig = JSON.parse(userConfig);
+        
         // 检查解析后的结果是否为对象
         if (typeof parsedConfig === 'object' && parsedConfig !== null) {
             return new Response(JSON.stringify(parsedConfig), { status: 200 });
         } else {
-            return new Response(JSON.stringify({}), { status: 200 });
+            return new Response(JSON.stringify(defaultConfig), { status: 200 });
         }
     } catch (error) {
-        // 捕捉解析错误并返回空对象
-        return new Response(JSON.stringify({}), { status: 200 });
+        // 捕捉解析错误并返回默认配置
+        return new Response(JSON.stringify(defaultConfig), { status: 200 });
     }
 }
