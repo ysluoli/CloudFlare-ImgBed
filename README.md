@@ -42,15 +42,15 @@
 
 </details>
 
-## 1.Introduction
+# 1.Introduction
 
 免费图片托管解决方案（支持存储绝大多数常见格式的**图片、视频、动图**等），具有**后台管理、图片审查**、**登录鉴权**、**页面自定义**、**多种方式及多文件上传**、**多文件及多格式链接复制**等功能（详见[第2章](#2.Features))。
 
 此外，上传**并没有严格限制文件类型**，理论上你可以上传**任何**文件，但是暂时不会针对图片和视频外的文件进行特殊优化和适配。
 
-![CloudFlare](https://alist.sanyue.site/d/imgbed/202410011443570.png)
+![CloudFlare](static/202410011443570.png)
 
-## 2.Features
+# 2.Features
 
 <details>
     <summary>项目特性</summary>
@@ -74,7 +74,7 @@
     >
     > Cloudflare R2渠道：上传大小不限，但超过免费额度会扣费，详见[Pricing | Cloudflare R2 docs](https://developers.cloudflare.com/r2/pricing/)
     >
-    > ![](https://alist.sanyue.site/d/imgbed/202411052346701.png)
+    > ![](static/202411052346701.png)
   
   - **上传方式多样**：支持多种上传方式（**拖拽点击、粘贴**）（Web/API)
   
@@ -128,21 +128,21 @@
 </details>
 
 
-## 3.Deployment
+# 3.Deployment
 
-### 3.1部署使用
+## 3.1部署使用
 
-**注意修改完环境变量，重新部署才能生效**，见[3.1章最后一节](#3.1.4注意！！！)；**版本更新方式**，也请见[3.1章最后一节](#3.1.4注意！！！)
+**注意修改完环境变量，重新部署才能生效**，见[3.1章最后一节](#3.1.4其他操作指南)；**版本更新方式**，也请见[3.1章最后一节](#3.1.4其他操作指南)
 
 <details>
     <summary>操作详情</summary>
 
-#### 3.1.1前期准备
+### 3.1.1前期准备
 
 <details>
     <summary>准备内容</summary>
 
-##### 3.1.1.1根据所需开通的渠道进行以下准备
+#### 3.1.1.1根据所需开通的渠道进行以下准备
 
 - 开通**Telegram Bot渠道**：**Telegram的`TG_BOT_TOKEN`和`TG_CHAT_ID`**
 
@@ -153,19 +153,19 @@
 
   1. 向[@BotFather](https://t.me/BotFather)发送`/newbot`，按照提示输入bot的备注、用户名等信息。成功创建后获得`TG_BOT_TOKEN`。
 
-     ![](https://alist.sanyue.site/d/imgbed/202409071744569.png)
+     ![](static/202409071744569.png)
 
   2. 创建一个新的频道（Channel），进入新建的频道，选择频道管理，将刚才创建的机器人设为频道管理员。
 
-     ![](https://alist.sanyue.site/d/imgbed/202409071758534.png)
+     ![](static/202409071758534.png)
 
-     ![](https://alist.sanyue.site/d/imgbed/202409071758796.png)
+     ![](static/202409071758796.png)
 
-     ![](https://alist.sanyue.site/d/imgbed/202410291531473.png)
+     ![](static/202410291531473.png)
 
   3. 向[@VersaToolsBot](https://t.me/VersaToolsBot)**转发**一条第2步新建频道中的消息，获取`TG_CHAT_ID`（频道ID）
 
-     ![](https://alist.sanyue.site/d/imgbed/202409071751619.png)
+     ![](static/202409071751619.png)
 
   </details>
 
@@ -176,19 +176,19 @@
   
   1. 前往Cloudflare Dashboard，选择`R2 存储对象`
   
-     ![](https://alist.sanyue.site/d/imgbed/202411052318204.png)
+     ![](static/202411052318204.png)
   
   2. 选择`创建存储桶`，名称随意，填完后点击`创建存储桶`即可完成创建
   
-     ![](https://alist.sanyue.site/d/imgbed/202411052319402.png)
+     ![](static/202411052319402.png)
   
   3. 根据需求可选操作：如果**需要启用图像审查，需要开启存储桶的公网访问权限**，有两种开启方式，详见下图。无论你选择哪种方式，都需要记下完整的公网访问链接，格式为`https://xxxx.xxx`
   
-     ![image-20241105232759131](https://alist.sanyue.site/d/imgbed/202411052327191.png)
+     ![image-20241105232759131](static/202411052327191.png)
   
   </details>
 
-##### 3.1.1.2根据部署方式进行以下准备
+#### 3.1.1.2根据部署方式进行以下准备
 
 - **部署于Cloudflare**
 
@@ -205,12 +205,12 @@
 
 </details>
 
-#### 3.1.2部署教程
+### 3.1.2部署教程
 
 <details>
     <summary>根据自己需求部署在CloudFlare或服务器上</summary>
 
-##### 3.1.2.1部署于Cloudflare
+#### 3.1.2.1部署于Cloudflare
 
 <details>
     <summary>部署方式</summary>
@@ -221,7 +221,7 @@
 
 2. 打开 Cloudflare Dashboard，进入 Pages 管理页面，选择创建项目，选择`连接到 Git 提供程序`
 
-![1](https://alist.sanyue.site/d/imgbed/202407201047300.png)
+![1](static/202407201047300.png)
 
 3. 按照页面提示输入项目名称，选择需要连接的 git 仓库，点击`部署站点`
 
@@ -236,11 +236,11 @@
      
      将前面新建的存储桶绑定到项目，名称为`img_r2`
      
-     ![](https://alist.sanyue.site/d/imgbed/202411052323183.png)
+     ![](static/202411052323183.png)
      
      如果后续要开启**图像审查**，需要设置`R2PublicUrl`环境变量，值为前面记下的**R2存储桶公网访问链接**：
      
-     ![](https://alist.sanyue.site/d/imgbed/202411052330663.png)
+     ![](static/202411052330663.png)
      
      </details>
 
@@ -248,9 +248,9 @@
 
    - 创建一个新的KV数据库
 
-     > ![](https://alist.sanyue.site/d/imgbed/202408261035367.png)
+     > ![](static/202408261035367.png)
      >
-     > ![](https://alist.sanyue.site/d/imgbed/202408261037971.png)
+     > ![](static/202408261037971.png)
 
    - 进入项目对应`设置`->`函数`->`KV 命名空间绑定`->`编辑绑定`->`变量名称`，填写`img_url`，KV命名空间选择刚才创建好的KV数据库
 
@@ -258,7 +258,7 @@
 
 </details>
 
-##### 3.1.2.2部署于服务器
+#### 3.1.2.2部署于服务器
 
 <details>
     <summary>部署方式</summary>
@@ -298,18 +298,19 @@
 
    正常启动，控制台输出如下：
 
-   ![202408191829163](https://alist.sanyue.site/d/imgbed/202408191855625.png)
+   ![202408191829163](static/202408191855625.png)
    
    </details>
 
 </details>
 
-#### 3.1.3其他可选配置
+### 3.1.3可选配置
 
 <details>
-    <summary>后台认证、API格式、自定义页面等设置</summary>
+    <summary>后台认证、自定义页面等设置</summary>
 
-##### 3.1.3.1后台管理认证
+
+#### 3.1.3.1后台管理认证
 
 
 后台管理页面默认**不设密码**，需按照如下方式**设置认证**：
@@ -323,7 +324,7 @@
 
    - 部署完成后，访问`http(s)://你的域名/dashboard`即可进入后台管理页面
 
-##### 3.1.3.2图片审查
+#### 3.1.3.2图片审查
 
 
 支持成人内容审查和自动屏蔽，开启步骤如下：
@@ -332,27 +333,27 @@
 - 打开 Cloudflare Pages 项目的管理页面，依次点击`设置`，`环境变量`，`添加环境变量`
 - 添加一个`变量名称`为`ModerateContentApiKey`，`值`为第一步获得的`API key`，点击`保存`即可
 
-##### 3.1.3.3Web和API上传认证
+#### 3.1.3.3Web和API上传认证
 
 
 环境变量增加认证码`AUTH_CODE`，值为你想要设置的认证码。
 
 Web端在登录页面输入你的**认证码**即可登录使用；API端需要在上传链接中后缀`authCode`参数，详见[API文档](#4.2.1上传API)。
 
-##### 3.1.3.4访问域名限制
+#### 3.1.3.4访问域名限制
 
 环境变量增加`ALLOWED_DOMAINS`，多个允许的域名用英文`,`分割，如：`域名.xyz,域名.cloudns.be,域名.pp.ua`
 
-##### 3.1.3.5白名单模式
+#### 3.1.3.5白名单模式
 
 环境变量增加`WhiteList_Mode`，设置为`true`即可开启白名单模式，仅设置为白名单的图片可被访问。
 
-##### 3.1.3.6页面自定义（DIY接口）
+#### 3.1.3.6页面自定义（DIY接口）
 
 <details>
     <summary>设置方式</summary>
 
-环境变量增加`USER_CONFIG`，JSON格式，具体字段用途及内容规范见下表。
+环境变量增加`USER_CONFIG`，JSON格式（设置时类型选`text`即可），具体字段用途及内容规范见下表。
 
 | 字段名      | 用途                 | 类型          | 内容规范                                                     |
 | ----------- | -------------------- | ------------- | ------------------------------------------------------------ |
@@ -385,17 +386,17 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 </details>
 
-##### 3.1.3.7远端遥测
+#### 3.1.3.7远端遥测
 
 便于开发者进行bug的捕捉和定位，但是**过程中可能收集到访问链接、域名等信息**，如您不愿意泄露类似信息给项目开发者，可在环境变量中添加`disable_telemetry`为`true`来退出遥测。
 
-##### 3.1.3.8随机图API
+#### 3.1.3.8随机图API
 
 设置`AllowRandom`环境变量，值为`true`，以从图床中随机获取一张图片，详见[API文档](#4.2.2随机图API)。
 
 ##### </details>
 
-#### 3.1.4注意！！！
+### 3.1.4其他操作指南
 
 <details>
     <summary>环境变量修改、程序更新等教程</summary>
@@ -403,11 +404,11 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 1. **修改环境变量方式**：
 
 
-![](https://alist.sanyue.site/d/imgbed/202408261040233.png)
+![](static/202408261040233.png)
 
 **修改环境变量后需要重新部署才能生效！**
 
-![](https://alist.sanyue.site/d/imgbed/202408261041507.png)
+![](static/202408261041507.png)
 
 2. **程序更新方式**：
 
@@ -416,36 +417,36 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 如果有新的环境变量需要添加，请根据文档要求进行添加，然后重试部署。
 
-![](https://alist.sanyue.site/d/imgbed/202409161736365.png)
+![](static/202409161736365.png)
 
 </details>
 
 </details>
 
-### 3.2定制化修改
+## 3.2定制化修改
 
 按照`3.1`步骤部署完成后，前往仓库[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub?tab=readme-ov-file)，按照操作说明进行DIY和打包操作，最后将打包好的`/dist`目录中的内容替换到该仓库的根目录下即可（复制+替换）。
 
-## 4.Usage
+# 4.Usage
 
-### 4.1Web端使用方式
+## 4.1Web端使用方式
 
-![](https://alist.sanyue.site/d/imgbed/202412092301397.png)
+![](static/202412092301397.png)
 
-![](https://alist.sanyue.site/d/imgbed/202412092305405.png)
+![](static/202412092305405.png)
 
-### 4.2API文档
+## 4.2API文档
 
 <details>
     <summary>API文档</summary>
 
-#### 4.2.1上传API
+### 4.2.1上传API
 
 | 接口名称     | /upload                                                      |
 | ------------ | ------------------------------------------------------------ |
 | **接口功能** | 上传图片或视频                                               |
 | **请求方法** | POST                                                         |
-| **请求参数** | **Query参数**：<br />`authCode`，string类型，即为你设置的认证码<br />`serverCompress`，boolean类型，表示是否开启服务端压缩（仅针对图片文件、Telegram上传渠道生效）<br />`uploadChannel`，string类型，取值为`telegram`和`cfr2`，分别代表telegram bot渠道和Cloudflare R2渠道，默认为telegram bot渠道<br />`nameType`，string类型，表示文件命名方式，可选值为`[default, index, origin]`，分别代表默认`前缀_原名`命名、仅前缀命名和仅原名命名法，默认为`default`<br />**Body参数(application/form-data)**：<br />`file`，file类型，你要上传的文件 |
+| **请求参数** | **Query参数**：<br />`authCode`: string类型，即为你设置的认证码<br />`serverCompress`: boolean类型，表示是否开启服务端压缩（仅针对图片文件、Telegram上传渠道生效，默认为`true`）<br />`uploadChannel`: string类型，取值为`telegram`和`cfr2`，分别代表telegram bot渠道和Cloudflare R2渠道，默认为`telegram` 渠道<br />`uploadNameType`: string类型，表示文件命名方式，可选值为`[default, index, origin]`，分别代表默认`前缀_原名`命名、`仅前缀`命名和`仅原名`命名法，默认为`default`<br />**Body参数(application/form-data)**：<br />`file`: file类型，你要上传的文件 |
 | **返回响应** | `data[0].src`为获得的图片链接（注意不包含域名，需要自己添加） |
 
 > **请求示例**：
@@ -468,7 +469,7 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 > ]
 > ```
 
-#### 4.2.2随机图API
+### 4.2.2随机图API
 
 
 | 接口名称     | /random                                                      |
@@ -476,7 +477,7 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 | **接口功能** | 从图床中随机返回一张图片的链接（注意会消耗列出次数）         |
 | **前置条件** | 设置`AllowRandom`环境变量，值为`true`                        |
 | **请求方法** | GET                                                          |
-| **请求参数** | **Query参数**：<br />`type`：设为`img`时直接返回图片（此时form不生效）；设为`url`时返回完整url链接；否则返回随机图的文件路径。<br />`form`:设为`text`时直接返回文本，否则返回json格式内容。 |
+| **请求参数** | **Query参数**：<br />`type`: 设为`img`时直接返回图片（此时form不生效）；设为`url`时返回完整url链接；否则返回随机图的文件路径。<br />`form`: 设为`text`时直接返回文本，否则返回json格式内容。 |
 | **响应格式** | 1、当`type`为`img`时：<br />返回格式为`image/jpeg`<br />2、当`type`为其他值时：<br />当`form`不是`text`时，返回JSON格式内容，`data.url`为返回的链接/文件路径。<br />否则，直接返回链接/文件路径。 |
 
 > **请求示例**：
@@ -496,9 +497,9 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 </details>
 
-## 5.TODO
+# 5.TODO
 
-### 5.1Add Features💕
+## 5.1Add Features💕
 
 <details>
 
@@ -533,13 +534,13 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 23. :hourglass_flowing_sand:后端list接口实现分页功能
 24. :white_check_mark:~~支持自定义链接前缀~~（2024.12.4已完成）
 25. :memo:对接alist，或实现webdav（评估中）
-26. :hourglass_flowing_sand:文件详情增加文件大小记录
+26. :white_check_mark:~~文件详情增加文件大小记录~~（2024.12.10已完成）
 27. :hourglass_flowing_sand:支持管理员自定义全局默认链接前缀
 28. :white_check_mark:~~开放更多文件格式~~（2024.12.9已完成）
 
 </details>
 
-### 5.2Fix Bugs👻
+## 5.2Fix Bugs👻
 
 <details>
 
@@ -553,29 +554,29 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 </details>
 
-## 6.Q&A
+# 6.Q&A
 
 <details>
     <summary>常见问题解答</summary>
 
-### 6.1未设置`ALLOWED_DOMAINS`，但无法跨域访问？
+## 6.1未设置`ALLOWED_DOMAINS`，但无法跨域访问？
 
 - 请检查你的cloudflare防火墙设置（例如hotlink保护是否开启）
 - 参见[Issue #8](https://github.com/MarSeventh/CloudFlare-ImgBed/issues/8)
 
-### 6.2如何通过PicGo上传？
+## 6.2如何通过PicGo上传？
 
 - PicGo插件设置中搜索`web-uploader`，安装可自定义前缀的版本，如图：
 
-  ![](https://alist.sanyue.site/d/imgbed/202408231141491.png)
+  ![](static/202408231141491.png)
 
 - 打开`图床设置`->`自定义Web图床`->`Default`，然后按照下图方式配置，注意API地址和自定义图片URL前缀按照自己的域名进行修改。（**如果设置了`AUTH_CODE`，一定以`?authCode=your_authCode`的方式添加到API地址后面**）：
 
-  ![](https://alist.sanyue.site/d/imgbed/202408261959174.png)
+  ![](static/202408261959174.png)
 
 - 设置完成，确定即可使用PicGo上传到自建的图床。
 
-### 6.3上传失败怎么办？
+## 6.3上传失败怎么办？
 
 - 是否正确配置`TG_BOT_TOKEN`、`TG_CHAT_ID`等环境变量
 - 是否给机器人管理员配置**足够的权限**
@@ -583,21 +584,21 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 - 是否更新至**最新版**
 - 前往issues寻找相似问题
 
-### 6.4`TG_CHAT_ID`前面有没有`-`
+## 6.4`TG_CHAT_ID`前面有没有`-`
 
 - 注意看图，前面有`-`
 
-### 6.5进入后台页面加载不出记录或图片
+## 6.5进入后台页面加载不出记录或图片
 
 - 网络问题，尝试刷新页面
 
 </details>
 
-## 7.Tips
+# 7.Tips
 
 前端开源，参见[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub)项目。
 
-## 8.Star History
+# 8.Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=MarSeventh/CloudFlare-ImgBed,MarSeventh/Sanyue-ImgHub&type=Date)](https://star-history.com/#MarSeventh/CloudFlare-ImgBed&MarSeventh/Sanyue-ImgHub&Date)
 
