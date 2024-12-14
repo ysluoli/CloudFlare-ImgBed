@@ -126,7 +126,7 @@ export async function onRequest(context) {  // Contents of context object
     if (response === null) {
         return new Response('Error: Failed to fetch image', { status: 500 });
     } else if (response.status === 404) {
-        return Response.redirect(url.origin + "/static/404.png", 302);
+        return await return404(url);
     }
     
     try {
@@ -176,27 +176,14 @@ async function returnWithCheck(request, env, url, imgRecord) {
             if (record.metadata.ListType == "White") {
                 return response;
             } else if (record.metadata.ListType == "Block") {
-                if (typeof request.headers.get('Referer') == "undefined" || request.headers.get('Referer') == null || request.headers.get('Referer') == "") {
-                    return Response.redirect(url.origin + "/blockimg", 302)
-                } else {
-                    return Response.redirect(url.origin + "/static/BlockImg.png", 302);
-                }
-
+                return await returnBlockImg(url);
             } else if (record.metadata.Label == "adult") {
-                if (typeof request.headers.get('Referer') == "undefined" || request.headers.get('Referer') == null || request.headers.get('Referer') == "") {
-                    return Response.redirect(url.origin + "/blockimg", 302)
-                } else {
-                    return Response.redirect(url.origin + "/static/BlockImg.png", 302);
-                }
+                return await returnBlockImg(url);
             }
             //check if the env variables WhiteList_Mode are set
             if (env.WhiteList_Mode == "true") {
                 //if the env variables WhiteList_Mode are set, redirect to the image
-                if (typeof request.headers.get('Referer') == "undefined" || request.headers.get('Referer') == null || request.headers.get('Referer') == "") {
-                    return Response.redirect(url.origin + "/whiteliston", 302)
-                } else {
-                    return response.redirect(url.origin + "/static/WhiteListOn.png", 302);
-                }
+                return await returnWhiteListImg(url);
             } else {
                 //if the env variables WhiteList_Mode are not set, redirect to the image
                 return response;
@@ -254,4 +241,72 @@ async function getFilePath(env, file_id) {
 
 function isTgChannel(imgRecord) {
     return imgRecord.metadata?.Channel === 'Telegram' || imgRecord.metadata?.Channel === 'TelegramNew';
+}
+
+async function return404(url) {
+    const Img404 = await fetch(url.origin + "/static/404.png");
+    if (!Img404.ok) {
+        return new Response(null,
+            {
+                status: 302,
+                headers: {
+                    "Location": url.origin + "/static/404.png",
+                    "Cache-Control": "public, max-age=86400"
+                }
+            }
+        );
+    } else {
+        return new Response(Img404.body, {
+            status: 404,
+            headers: {
+                "Content-Type": "image/png",
+                "Content-Disposition": "inline",
+                "Cache-Control": "public, max-age=86400",
+            },
+        });
+    }
+}
+
+async function returnBlockImg(url) {
+    const blockImg = await fetch(url.origin + "/static/BlockImg.png");
+    if (!blockImg.ok) {
+        return new Response(null, {
+            status: 302,
+            headers: {
+                "Location": url.origin + "/static/BlockImg.png",
+                "Cache-Control": "public, max-age=86400"
+            }
+        })
+    } else {
+        return new Response(blockImg.body, {
+            status: 403,
+            headers: {
+                "Content-Type": "image/png",
+                "Content-Disposition": "inline",
+                "Cache-Control": "public, max-age=86400",
+            },
+        });
+    }
+}
+
+async function returnWhiteListImg(url) {
+    const WhiteListImg = await fetch(url.origin + "/static/WhiteListOn.png");
+    if (!WhiteListImg.ok) {
+        return new Response(null, {
+            status: 302,
+            headers: {
+                "Location": url.origin + "/static/WhiteListOn.png",
+                "Cache-Control": "public, max-age=86400"
+            }
+        })
+    } else {
+        return new Response(WhiteListImg.body, {
+            status: 200,
+            headers: {
+                "Content-Type": "image/png",
+                "Content-Disposition": "inline",
+                "Cache-Control": "public, max-age=86400",
+            },
+        });
+    }
 }

@@ -22,10 +22,9 @@
 <details>
     <summary>体验地址及优质博文、视频（搭建或使用有问题可以先去里面学习哦~）</summary>
 
-**体验地址**：[Sanyue ImgHub (demo-cloudflare-imgbed.pages.dev)](https://demo-cloudflare-imgbed.pages.dev/)
+**体验地址**：[CloudFlare ImgBed](https://cfbed.1314883.xyz/)
 
 > 访问码：cfbed
->
 
 **体验视频**：[CloudFlare免费图床，轻松守护你的每一份精彩！_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1y3WGe4EGh/?vd_source=da5ecbe595e41089cd1bed95932b8bfd)
 
@@ -45,12 +44,24 @@
 <details>
     <summary>更新日志</summary>
 
+## 2024.12.13
+
+Add Features:
+
+- 优化blockimg、whitelistmode、404等返回状态的缓存策略，尽可能减少回源请求(参考文档`3.1.3.9管理端删除、拉黑等操作优化`进行设置)
+
 ## 2024.12.12
 
 Add Features: 
 
 - 后端支持上传失败自动切换其他渠道重试
 - 优化404、blockimg、whitelistmode等返回状态的显示样式
+
+## 2024.12.11
+
+Add Features:
+
+- 进行删除、加入白名单、加入黑名单等操作时，自动清除CF CDN缓存，避免延迟生效(参考文档`3.1.3.9管理端删除、拉黑等操作优化`进行设置)
 
 </details>
 
@@ -152,39 +163,38 @@ Add Features:
 ### 3.1.1前期准备
 
 <details>
-    <summary>准备内容</summary>
+    <summary>开始部署前需要准备的东西</summary>
+
 
 #### 3.1.1.1根据所需开通的渠道进行以下准备
 
 - 开通**Telegram Bot渠道**：**Telegram的`TG_BOT_TOKEN`和`TG_CHAT_ID`**
 
   <details>
-      <summary>操作详情</summary>
+      <summary>TG_BOT_TOKEN和TG_CHAT_ID的获取方式</summary>
+
 
   首先需要拥有一个Telegram账户，然后按照以下步骤获取`TG_BOT_TOKEN`和`TG_CHAT_ID`。
 
   1. 向[@BotFather](https://t.me/BotFather)发送`/newbot`，按照提示输入bot的备注、用户名等信息。成功创建后获得`TG_BOT_TOKEN`。
 
-     ![](static/readme/202409071744569.png)
+     <img src="static/readme/202409071744569.png" style="width: 50%;" />
 
   2. 创建一个新的频道（Channel），进入新建的频道，选择频道管理，将刚才创建的机器人设为频道管理员。
 
-     ![](static/readme/202409071758534.png)
-
-     ![](static/readme/202409071758796.png)
-
-     ![](static/readme/202410291531473.png)
+     <img src="static/readme/202409071758534.png" style="display:inline-block; width:33%"/><img src="static/readme/202409071758796.png" style="display:inline-block; width:32%"/><img src="static/readme/202410291531473.png" style="width:33%;display: inline-block" />
 
   3. 向[@VersaToolsBot](https://t.me/VersaToolsBot)**转发**一条第2步新建频道中的消息，获取`TG_CHAT_ID`（频道ID）
 
-     ![](static/readme/202409071751619.png)
+     <img src="static/readme/202409071751619.png" style="width: 67%;" />
 
   </details>
 
 - 开通**Cloudflare R2渠道**：新建一个Cloudflare R2存储桶，前提是需要绑定支付方式。
 
   <details>
-      <summary>操作详情</summary>
+      <summary>Cloudflare R2渠道开通方式</summary>
+  
   
   1. 前往Cloudflare Dashboard，选择`R2 存储对象`
   
@@ -225,7 +235,8 @@ Add Features:
 #### 3.1.2.1部署于Cloudflare
 
 <details>
-    <summary>部署方式</summary>
+    <summary>部署在Cloudflare上的方式</summary>
+
 
 依托于CF的强大能力，只需简单几步，即可部署本项目，拥有自己的图床。
 
@@ -233,7 +244,7 @@ Add Features:
 
 2. 打开 Cloudflare Dashboard，进入 Pages 管理页面，选择创建项目，选择`连接到 Git 提供程序`
 
-![1](static/readme/202407201047300.png)
+<img src="static/readme/202407201047300.png" alt="1" style="width: 50%;" />
 
 3. 按照页面提示输入项目名称，选择需要连接的 git 仓库，点击`部署站点`
 
@@ -244,7 +255,7 @@ Add Features:
    - `Cloudflare R2 渠道`：
 
      <details>
-         <summary>设置方式</summary>
+         <summary>R2渠道设置方式</summary>
      
      将前面新建的存储桶绑定到项目，名称为`img_r2`
      
@@ -535,6 +546,8 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 ## 5.1Add Features💕
 
 <details>
+    <summary>功能更新列表</summary>
+
 
 1. :white_check_mark: ~~增加粘贴图片上传功能~~（2024.7.22已完成）
 2. :white_check_mark:~~增加markdown、html等格式链接复制功能~~（2024.7.21已完成）
@@ -577,6 +590,8 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 ## 5.2Fix Bugs👻
 
 <details>
+    <summary>Bug修复列表</summary>
+
 
 1. :white_check_mark:~~修复API上传无法直接展示在后台的问题~~（2024.7.25已修复）
 1. :white_check_mark:~~由于telegra.ph关闭上传，迁移至TG频道上传~~（2024.9.7已修复）
@@ -627,11 +642,20 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 - 网络问题，尝试刷新页面
 
+## 6.6后台进行删除、拉黑等操作时不能立即生效
+
+- 与CDN缓存有关
+- 详见[[重要\]关于CDN缓存的说明（删除、拉黑等操作延迟生效解决方案） · Issue #123 · MarSeventh/CloudFlare-ImgBed (github.com)](https://github.com/MarSeventh/CloudFlare-ImgBed/issues/123)
+
 </details>
 
 # 7.Tips
 
 前端开源，参见[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub)项目。
+
+**打赏**：项目维护不易，喜欢本项目的话，可以作者大大一点小小的鼓励哦，您的每一份支持都是我前进的动力~
+
+<img src="static/readme/award.png" alt="award" style="width:33%;display: inline-block" />
 
 # 8.Star History
 
