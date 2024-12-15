@@ -6,11 +6,10 @@
 
 <details>
     <summary>公告</summary>
+部署使用出现问题，请先仔细查阅文档、常见问题解答以及已有issues。
 
 **注意**：本仓库为[Telegraph-Image](https://github.com/cf-pages/Telegraph-Image)项目的重制版，如果你觉得本项目不错，在支持本项目的同时，也请支持原项目。
 
-> [!IMPORTANT]
->
 > 由于telegraph图床被滥用，该项目上传渠道已切换至Telegram Channel，请**更新至最新版（更新方式见第3.1章最后一节）**，按照文档中的部署要求**设置`TG_BOT_TOKEN`和`TG_CHAT_ID`**，否则将无法正常使用上传功能。
 >
 > 此外，目前**KV数据库为必须配置**，如果以前未配置请按照文档说明配置。
@@ -21,6 +20,7 @@
 
 <details>
     <summary>体验地址及优质博文、视频（搭建或使用有问题可以先去里面学习哦~）</summary>
+
 
 **体验地址**：[CloudFlare ImgBed](https://cfbed.1314883.xyz/)
 
@@ -44,6 +44,13 @@
 <details>
     <summary>更新日志</summary>
 
+
+## 2024.12.14
+
+Add Features:
+
+- 管理端增加批量黑名单、白名单功能
+
 ## 2024.12.13
 
 Add Features:
@@ -62,6 +69,126 @@ Add Features:
 Add Features:
 
 - 进行删除、加入白名单、加入黑名单等操作时，自动清除CF CDN缓存，避免延迟生效(参考文档`3.1.3.9管理端删除、拉黑等操作优化`进行设置)
+
+## 2024.12.10
+
+Add Features:
+
+- 文件详情增加文件大小记录
+
+## 2024.12.09
+
+Add Features:
+
+- 开放更多文件格式
+
+Fix Bugs:
+
+- 读取文件响应头增加允许跨域头`access-control-allow-origin: *`
+
+## 2024.12.04
+
+Add Features:
+
+- 支持自定义命名方式（仅原名 or 仅随机前缀 or 默认的随机前缀_原名）
+- Telegram Channel渠道上传文件记录机器人和频道数据，便于迁移和备份
+- 支持自定义链接前缀
+
+Fix Bugs:
+
+- R2渠道在管理端删除时，存储桶同步删除
+
+## 2024.11.05
+
+Add Features:
+
+- 增加对R2 bucket的支持
+
+## 2024.10.20
+
+Add Features:
+
+- 页脚增加自定义传送门功能
+
+## 2024.09.28
+
+Add Features:
+
+- 上传页面右下角工具栏样式重构，支持上传页自定义压缩（上传前+存储端）
+- 增加仅删除上传成功图片、上传失败图片重试
+
+## 2024.09.27
+
+Add Features:
+
+- 上传页面点击链接时，自动复制到剪切板
+- 上传设置记忆（上传方式、链接格式等）
+
+Fix Bugs:
+
+- 若未设置密码，无需跳转登录页
+
+## 2024.09.26
+
+Add Features:
+
+- 优化粘贴上传时的文件命名方法
+
+## 2024.09.12
+
+Add Features:
+
+- 增加背景透明度支持自定义
+
+## 2024.09.11
+
+Add Features:
+
+- 支持背景切换时间自定义
+
+## 2024.08.26
+
+Add Features:
+
+- 支持大于5MB的图片上传前自动压缩
+- 图床名称和Logo支持自定义
+- 网站标题和Icon支持自定义
+
+## 2024.08.23
+
+Add Features:
+
+- 支持URL粘贴上传
+
+## 2024.08.21
+
+Add Features:
+
+- 完善多格式链接展示形式，增加UBB格式链接支持
+- 完善登录逻辑，后端增加认证码校验接口
+
+## 2024.07.25
+
+Add Features:
+
+- 增加随机图API
+
+Fix Bugs:
+
+- 修复API上传无法直接展示在后台的问题
+
+## 2024.07.22
+
+Add Features:
+
+- 增加粘贴图片上传功能
+
+## 2024.07.21
+
+Add Features:
+
+- 增加Markdown、HTML等格式链接复制功能
+- 上传页面增加管理端入口
 
 </details>
 
@@ -158,15 +285,15 @@ Add Features:
 **注意修改完环境变量，重新部署才能生效**，见[3.1章最后一节](#3.1.4其他操作指南)；**版本更新方式**，也请见[3.1章最后一节](#3.1.4其他操作指南)
 
 <details>
-    <summary>操作详情</summary>
+    <summary>详细部署教程</summary>
+
 
 ### 3.1.1前期准备
 
 <details>
-    <summary>开始部署前需要准备的东西</summary>
+    <summary>根据所需开通的渠道进行以下准备</summary>
 
 
-#### 3.1.1.1根据所需开通的渠道进行以下准备
 
 - 开通**Telegram Bot渠道**：**Telegram的`TG_BOT_TOKEN`和`TG_CHAT_ID`**
 
@@ -210,21 +337,6 @@ Add Features:
   
   </details>
 
-#### 3.1.1.2根据部署方式进行以下准备
-
-- **部署于Cloudflare**
-
-  
-  需准备一个**Cloudflare账户**，然后按照[3.1.2.1节](#3.1.2.1部署于Cloudflare)的步骤即可完成部署。
-
-- **部署于服务器**
-
-  
-  如果Cloudflare的**有限访问次数**不能满足你的需求，并且你拥有自己的服务器，可以参照[3.1.2.2节](#3.1.2.2部署于服务器)的教程在服务器上模拟Cloudflare的环境，并开放对应的端口访问服务。
-  
-  注意由于服务器操作系统、硬件版本复杂多样，相关教程**无法确保适合每一位用户**，遇到报错请尽量利用搜索引擎解决，无法解决也可以提issue寻求帮助。
-  
-
 </details>
 
 ### 3.1.2部署教程
@@ -232,7 +344,10 @@ Add Features:
 <details>
     <summary>根据自己需求部署在CloudFlare或服务器上</summary>
 
+
 #### 3.1.2.1部署于Cloudflare
+
+需准备一个**Cloudflare账户**，然后按照以下步骤即可完成部署。
 
 <details>
     <summary>部署在Cloudflare上的方式</summary>
@@ -244,7 +359,7 @@ Add Features:
 
 2. 打开 Cloudflare Dashboard，进入 Pages 管理页面，选择创建项目，选择`连接到 Git 提供程序`
 
-<img src="static/readme/202407201047300.png" alt="1" style="width: 50%;" />
+   > ![](static/readme/202407201047300.png)
 
 3. 按照页面提示输入项目名称，选择需要连接的 git 仓库，点击`部署站点`
 
@@ -254,18 +369,13 @@ Add Features:
 
    - `Cloudflare R2 渠道`：
 
-     <details>
-         <summary>R2渠道设置方式</summary>
+     - 将前面新建的存储桶绑定到项目，名称为`img_r2`
      
-     将前面新建的存储桶绑定到项目，名称为`img_r2`
+       > ![](static/readme/202411052323183.png)
      
-     ![](static/readme/202411052323183.png)
+     - 如果后续要开启**图像审查**，需要设置`R2PublicUrl`环境变量，值为前面记下的**R2存储桶公网访问链接**：
      
-     如果后续要开启**图像审查**，需要设置`R2PublicUrl`环境变量，值为前面记下的**R2存储桶公网访问链接**：
-     
-     ![](static/readme/202411052330663.png)
-     
-     </details>
+       > ![](static/readme/202411052330663.png)
 
 3. **绑定KV数据库**：
 
@@ -283,8 +393,13 @@ Add Features:
 
 #### 3.1.2.2部署于服务器
 
+如果Cloudflare的**有限访问次数**不能满足你的需求，并且你拥有自己的服务器，可以参照[3.1.2.2节](#3.1.2.2部署于服务器)的教程在服务器上模拟Cloudflare的环境，并开放对应的端口访问服务。
+
+注意由于服务器操作系统、硬件版本复杂多样，相关教程**无法确保适合每一位用户**，遇到报错请尽量利用搜索引擎解决，无法解决也可以提issue寻求帮助。
+
 <details>
-    <summary>部署方式</summary>
+    <summary>部署在服务器上的方式</summary>
+
 
 1. 安装服务器操作系统对应的`node.js`，经测试`v22.5.1`版本可以正常使用。（安装教程自行search）
 
@@ -573,7 +688,7 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 16. :white_check_mark:~~增加仅删除上传成功图片、上传失败图片重试~~（2024.9.28已完成）
 17. :white_check_mark:~~优化粘贴上传时文件命名方法~~（2024.9.26已完成）
 18. :white_check_mark:~~增加对R2 bucket的支持~~（2024.11.5已完成）
-19. :hourglass_flowing_sand:管理端增加批量黑名单、白名单功能
+19. :white_check_mark:~~管理端增加批量黑名单、白名单功能~~（2024.12.14已完成）
 20. :white_check_mark:~~Telegram Channel渠道上传文件记录机器人和频道数据，便于迁移和备份~~（2024.12.4已完成）
 21. :white_check_mark:~~支持自定义命名方式（仅原名 or 仅随机前缀 or 默认的随机前缀\_原名）~~（2024.12.4已完成）
 22. :white_check_mark:~~支持上传失败自动切换其他渠道尝试~~（2024.12.12已完成）
