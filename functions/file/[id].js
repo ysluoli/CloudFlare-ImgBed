@@ -76,11 +76,11 @@ export async function onRequest(context) {  // Contents of context object
         if (fileType) {
             headers.set('Content-Type', fileType);
         }
-        // 根据Referer设置CDN缓存策略，如果是从/或/dashboard等访问，则仅允许浏览器缓存；否则设置为public，缓存时间为1年
+        // 根据Referer设置CDN缓存策略，如果是从/或/dashboard等访问，则仅允许浏览器缓存；否则设置为public，缓存时间为7天
         if (Referer && Referer.includes(url.origin)) {
             headers.set('Cache-Control', 'private, max-age=86400');
         } else {
-            headers.set('Cache-Control', 'public, max-age=31536000');
+            headers.set('Cache-Control', 'public, max-age=604800');
         }
 
         // 返回图片
@@ -136,11 +136,11 @@ export async function onRequest(context) {  // Contents of context object
         if (fileType) {
             headers.set('Content-Type', fileType);
         }
-        // 根据Referer设置CDN缓存策略，如果是从/或/dashboard等访问，则仅允许浏览器缓存；否则设置为public，缓存时间为1年
+        // 根据Referer设置CDN缓存策略，如果是从/或/dashboard等访问，则仅允许浏览器缓存；否则设置为public，缓存时间为7天
         if (Referer && Referer.includes(url.origin)) {
             headers.set('Cache-Control', 'private, max-age=86400');
         } else {
-            headers.set('Cache-Control', 'public, max-age=31536000');
+            headers.set('Cache-Control', 'public, max-age=604800');
         }
 
         const newRes =  new Response(response.body, {
@@ -246,11 +246,10 @@ function isTgChannel(imgRecord) {
 async function return404(url) {
     const Img404 = await fetch(url.origin + "/static/404.png");
     if (!Img404.ok) {
-        return new Response(null,
+        return new Response('Error: Image Not Found',
             {
-                status: 302,
+                status: 404,
                 headers: {
-                    "Location": url.origin + "/static/404.png",
                     "Cache-Control": "public, max-age=86400"
                 }
             }
@@ -273,7 +272,7 @@ async function returnBlockImg(url) {
         return new Response(null, {
             status: 302,
             headers: {
-                "Location": url.origin + "/static/BlockImg.png",
+                "Location": url.origin + "/blockimg",
                 "Cache-Control": "public, max-age=86400"
             }
         })
@@ -295,7 +294,7 @@ async function returnWhiteListImg(url) {
         return new Response(null, {
             status: 302,
             headers: {
-                "Location": url.origin + "/static/WhiteListOn.png",
+                "Location": url.origin + "/whiteliston",
                 "Cache-Control": "public, max-age=86400"
             }
         })
